@@ -1,0 +1,66 @@
+@import "./variables.scss";
+.ag-theme-balham {
+  font-size: 16px;
+  font-family: "Barlow", sans-serif;
+}
+.ag-theme-balham .ag-header {
+  background-color: $header-bg;
+}
+
+.ag-header-cell-text {
+  color: $header-item-color;
+}
+
+.ag-theme-balham .ag-row {
+  background: white;
+}
+
+.ag-header-cell:first-child {
+  border-right: 2px solid $border-color;
+}
+
+.ag-theme-balham .ag-ltr .ag-cell:first-child {
+  border-right: 2px solid $border-color;
+}
+
+.ag-theme-balham .ag-header-cell::after {
+  background-color: transparent !important;
+}
+
+.ag-theme-balham .ag-cell {
+  line-height: 48px;
+}
+
+.ag-theme-balham .ag-ltr .ag-cell {
+  span {
+    width: 50px;
+    .cell-with-icon {
+      display: flex;
+      align-items: center;
+      .opportunity-icon {
+        margin-right: 12px;
+      }
+      .star-icon {
+        margin-left: 12px;
+      }
+    }
+  }
+}
+
+.cell-link {
+  color: $cell-link;
+  text-decoration: none;
+
+  &:hover {
+    color: black;
+  }
+}
+
+.ag-theme-balham {
+  .ag-row {
+    border: 1px solid $row-border-color;
+    &:hover {
+      background: $header-bg;
+    }
+  }
+}
