@@ -32,6 +32,8 @@
 }
 
 .ag-theme-balham .ag-ltr .ag-cell {
+  font-weight: 400;
+  color: #6b6b99;
   span {
     width: 50px;
     .cell-with-icon {
@@ -58,9 +60,16 @@
 
 .ag-theme-balham {
   .ag-row {
-    border: 1px solid $row-border-color;
+    border: 1px solid $border-color;
     &:hover {
       background: $header-bg;
     }
   }
+}
+
+.ag-theme-balham .ag-root-wrapper {
+  border: none;
+}
+.ag-theme-balham .ag-header {
+  border-top: 2px solid $border-color;
 }
