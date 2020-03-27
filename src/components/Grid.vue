@@ -189,6 +189,6 @@ export default {
 
 #myGrid {
   width: 100% !important;
-  height: 700px !important;
+  height: 750px !important;
 }
 </style>
