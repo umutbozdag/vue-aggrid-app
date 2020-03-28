@@ -1,10 +1,14 @@
 <template>
   <div>
-    <div v-if="openModal" id="myModal" class="modal">
+    <div @keypress.esc="deneme()" v-if="openModal" id="myModal" class="modal">
       <div class="modal-content">
-        <h2>Search Volume</h2>
-        <p>{{keyword}}</p>
-        <span @click="closeModal()" class="close">&times;</span>
+        <h2 class="modal-title">
+          Search Volume
+          <span @click="closeModal()" class="close">
+            <i class="fas fa-times close"></i>
+          </span>
+        </h2>
+        <p class="modal-keyword">{{keyword}}</p>
 
         <chart :volumeData="volumeData"></chart>
       </div>
@@ -49,7 +53,11 @@ export default {
   },
   methods: {
     closeModal() {
+      console.log("i am working");
       this.openModal = false;
+    },
+    deneme() {
+      console.log("denemee");
     }
   }
 };
@@ -72,27 +80,42 @@ export default {
   background-color: rgba(0, 0, 0, 0.5);
 }
 
+.modal-title,
+.modal-keyword {
+  align-self: flex-start;
+  margin-left: 5%;
+}
+.modal-title {
+  color: #9999cc;
+  padding: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.modal-keyword {
+  color: #6b6b99;
+}
+
 .modal-content {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   background-color: #fefefe;
-  margin: 15% auto; /* 15% from the top and centered */
+  margin: 13% auto;
   padding: 12px 24px;
   border: 1px solid rgb(12, 12, 12);
-  width: 55%; /* Could be more or less, depending on screen size */
+  width: 50%;
+  position: relative;
 }
 
 .close {
-  color: #aaa;
-  float: right;
-  font-size: 48px;
-  font-weight: bold;
+  font-size: 24px;
   position: absolute;
   top: 0;
   right: 0;
+  margin-top: 32px;
   margin-right: 24px;
+  color: #9999cc;
 }
 
 .close:hover,
