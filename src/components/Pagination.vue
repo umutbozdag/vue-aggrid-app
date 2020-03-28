@@ -64,24 +64,11 @@ export default {
         return this.gridApi.paginationGetCurrentPage() + 1;
       }
     },
-    onBtFirst() {
-      this.gridApi.paginationGoToFirstPage();
-    },
-    onBtLast() {
-      console.log("here");
-      this.gridApi.paginationGoToLastPage();
-    },
     onBtNext() {
       this.gridApi.paginationGoToNextPage();
     },
     onBtPrevious() {
       this.gridApi.paginationGoToPreviousPage();
-    },
-    onBtPageFive() {
-      this.gridApi.paginationGoToPage(4);
-    },
-    onBtPageFifty() {
-      this.gridApi.paginationGoToPage(49);
     },
     onCellClicked(event) {
       console.log("clicked", event);
