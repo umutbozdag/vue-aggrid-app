@@ -14,6 +14,7 @@
 <script>
 import Vue from "vue";
 import axios from "axios";
+import { bus } from "../main";
 
 export default Vue.extend({
   components: {},
@@ -26,7 +27,7 @@ export default Vue.extend({
   methods: {
     openModal() {
       console.log("MODAL", this.params);
-      this.$emit("event-open-modal", true);
+      bus.$emit("open-modal", this.params);
     }
   }
 });
