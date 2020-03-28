@@ -21,6 +21,11 @@ export default {
     return {
       volumeSeries: [],
       volumeCategories: [],
+      plotOptions: {
+        bar: {
+          barHeight: "100%"
+        }
+      },
       options: {
         type: "bar",
         dataLabels: {
@@ -31,6 +36,12 @@ export default {
           id: "searchVolumeChart"
         },
         xaxis: {
+          label: {
+            style: {
+              colors: ["#9999CC"]
+            }
+          },
+
           categories: [],
           labels: {
             formatter: function(value, timestamp) {
@@ -67,7 +78,7 @@ export default {
             breakpoint: 1024,
             options: {
               dataLabels: {
-                enabled: true
+                enabled: false
               }
             }
           }
@@ -75,7 +86,7 @@ export default {
       },
       series: [
         {
-          name: "",
+          name: "value",
           data: []
         }
       ]
@@ -107,15 +118,11 @@ export default {
 
 <style lang="scss" scoped>
 .chart-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
 }
-@media only screen and (max-width: 1440px) {
+/* @media only screen and (max-width: 1440px) {
   .chart-container {
     width: 900px !important;
     height: 200px !important;
   }
-}
+} */
 </style>

@@ -88,7 +88,7 @@ export default {
 .modal-title {
   color: #9999cc;
   padding: 0;
-  margin-top: 0;
+  margin-top: 3%;
   margin-bottom: 0;
 }
 .modal-keyword {
@@ -96,16 +96,13 @@ export default {
 }
 
 .modal-content {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
   background-color: #fefefe;
   margin: 13% auto;
   padding: 12px 24px;
-  border: 1px solid rgb(12, 12, 12);
-  width: 50%;
+  width: 40%;
   position: relative;
+  box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 0.3);
 }
 
 .close {
@@ -113,7 +110,7 @@ export default {
   position: absolute;
   top: 0;
   right: 0;
-  margin-top: 32px;
+  margin-top: 3%;
   margin-right: 24px;
   color: #9999cc;
 }
@@ -123,5 +120,44 @@ export default {
   color: black;
   text-decoration: none;
   cursor: pointer;
+}
+
+@media only screen and (max-width: 1440px) {
+  .modal-title {
+    margin-top: 5%;
+  }
+  .modal-keyword {
+    margin-bottom: 5%;
+  }
+
+  .close {
+    margin-top: 6%;
+  }
+
+  .modal-content {
+    width: 50%;
+  }
+}
+
+@media only screen and (max-width: 1200px) {
+  .modal-title {
+    margin-top: 7%;
+  }
+
+  .close {
+    margin-top: 7%;
+  }
+  .modal-keyword {
+    margin-bottom: 10%;
+  }
+  .modal-content {
+    width: 70%;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  .modal-content {
+    width: 90%;
+  }
 }
 </style>
