@@ -103,6 +103,7 @@ export default {
   width: 40%;
   position: relative;
   box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 0.3);
+  overflow-y: scroll;
 }
 
 .close {
