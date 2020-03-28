@@ -1,11 +1,14 @@
 @import "./variables.scss";
 .box {
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  padding: 4px;
+  margin-top: 12px;
+  margin-left: 12px;
   width: 28px;
   height: 22px;
-  border-radius: 6px;
-  margin-left: 12px;
-  padding: 6px;
 }
 .green-box {
   background: $change-pos-bg;
