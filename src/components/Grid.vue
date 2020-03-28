@@ -9,7 +9,7 @@
       :rowData="rowData"
       rowSelection="multiple"
       pagination="true"
-      paginationPageSize="20"
+      :paginationPageSize="paginationPageSize"
       :defaultColDef="defaultColDefs"
       :gridOptions="gridOptions"
       @cellClicked="onCellClicked"
@@ -22,13 +22,21 @@
       :suppressScrollOnNewData="true"
     ></ag-grid-vue>
 
-    <div>
-      <button v-on:click="onBtFirst()">To First</button>
-      <button v-on:click="onBtLast()" id="btLast">To Last</button>
-      <button v-on:click="onBtPrevious()">To Previous</button>
-      <button v-on:click="onBtNext()">To Next</button>
-      <button v-on:click="onBtPageFive()">To Page 5</button>
-      <button v-on:click="onBtPageFifty()">To Page 50</button>
+    <div class="pagination">
+      <span class="per-page">Per page:</span>
+
+      <div class="options">
+        <select v-on:change="onPageSizeChanged()" id="page-size">
+          <option value="20" selected>20</option>
+          <option value="100">100</option>
+          <option value="500">500</option>
+          <option value="1000">1000</option>
+        </select>
+      </div>
+      <i v-on:click="onBtPrevious()" class="fas fa-chevron-left pagination-icon"></i>
+      <span class="current-page">{{getCurrentPage()}}</span>
+      <i v-on:click="onBtNext()" class="fas fa-chevron-right pagination-icon"></i>
+      <span>of {{getTotalPages()}}</span>
     </div>
   </div>
 </template>
@@ -49,11 +57,13 @@ import KeywordRenderer from "./KeywordRenderer";
 import PixelRankChangeRenderer from "./PixelRankChangeRenderer";
 import CpcRenderer from "./CpcRenderer.vue";
 import CustomHeader from "./CustomHeader";
+
 import {
   setText,
   setLastButtonDisabled,
   setRowData
 } from "../helpers/pagination";
+
 export default {
   name: "Grid",
 
@@ -62,6 +72,7 @@ export default {
   },
   data() {
     return {
+      paginationPageSize: 20,
       gridOptions: {},
       gridApi: null,
       gridColumnApi: null,
@@ -82,6 +93,11 @@ export default {
   },
 
   methods: {
+    onPageSizeChanged(newPageSize) {
+      var value = document.getElementById("page-size").value;
+      this.gridApi.paginationSetPageSize(Number(value));
+    },
+
     onPaginationChanged() {
       console.log("onPaginationPageLoaded");
       if (this.gridApi) {
@@ -90,6 +106,16 @@ export default {
         setText("#lbCurrentPage", this.gridApi.paginationGetCurrentPage() + 1);
         setText("#lbTotalPages", this.gridApi.paginationGetTotalPages());
         setLastButtonDisabled(!this.gridApi.paginationIsLastPageFound());
+      }
+    },
+    getTotalPages() {
+      if (this.gridApi) {
+        return this.gridApi.paginationGetTotalPages();
+      }
+    },
+    getCurrentPage() {
+      if (this.gridApi) {
+        return this.gridApi.paginationGetCurrentPage() + 1;
       }
     },
     onBtFirst() {
@@ -221,4 +247,73 @@ export default {
 @import "../../node_modules/ag-grid-community/src/styles/ag-theme-balham/sass/ag-theme-balham-mixin";
 @import "../styles/variables.scss";
 @import "../styles/grid.scss";
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  margin-right: 10%;
+  font-weight: 600;
+  font-size: 16px;
+  color: #6b6b99;
+  padding: 6px;
+}
+
+.options {
+  border: 1px solid #e2e1eb;
+  padding: 4px;
+  border-radius: 4px;
+  margin-right: 16px;
+}
+select {
+  appearance: none;
+  user-select: none;
+  padding: 10px;
+  outline: none;
+  -webkit-padding-start: 2px;
+  -moz-padding-start: 2px;
+  background-image: url("../assets/chevron_down.svg");
+  background-size: 18px;
+  background-position: center right;
+  background-repeat: no-repeat;
+  border: none;
+  border-radius: 2px;
+  font-size: 16px;
+  margin: 0;
+  overflow: hidden;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-right: 6px;
+  color: #6b6b99;
+}
+
+option {
+  appearance: none;
+  font-weight: bold;
+}
+
+.pagination-icon {
+  background: transparent;
+  border: 1px solid #e2e1eb;
+  padding: 4px;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.current-page {
+  margin: 0 12px;
+  width: 50px;
+  text-align: center;
+  border: 1px solid #e2e1eb;
+  padding: 4px;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.per-page {
+  margin-right: 11px;
+}
 </style>

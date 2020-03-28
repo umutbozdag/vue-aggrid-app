@@ -5,7 +5,7 @@
     <div class="home__container">
       <grid />
     </div>
-    <modal />
+    <!-- <modal /> -->
   </div>
 </template>
 
@@ -43,11 +43,8 @@ export default {
     margin-left: 24px;
     padding-top: 24px;
   }
-  background: rgba(49, 49, 77, 0.03);
   border-radius: 6px;
   height: 100%;
   margin: 0;
-  &__container {
-  }
 }
 </style>

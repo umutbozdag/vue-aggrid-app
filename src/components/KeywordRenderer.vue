@@ -11,9 +11,4 @@ export default Vue.extend({});
 
 <style lang="scss" scoped>
 @import "../styles/variables.scss";
-.keyword {
-  /* border-right: 2px solid $border-color; */
-}
-span {
-}
 </style>
