@@ -2,8 +2,8 @@
 <template>
   <div class="grid">
     <ag-grid-vue
+      v-on:event-open-modal="deneme($event)"
       id="myGrid"
-      style="width: 500px; height: 500px;"
       class="ag-theme-balham"
       :columnDefs="columnDefs"
       :rowData="rowData"
@@ -12,19 +12,48 @@
       paginationPageSize="20"
       :defaultColDef="defaultColDefs"
       :gridOptions="gridOptions"
-      :cellClicked="onCellClicked"
-      headerHeight="38"
+      @cellClicked="onCellClicked"
+      headerHeight="48"
+      :frameworkComponents="frameworkComponents"
+      :context="context"
+      @grid-ready="onGridReady"
+      :suppressPaginationPanel="true"
+      @pagination-changed="onPaginationChanged"
+      :suppressScrollOnNewData="true"
     ></ag-grid-vue>
+
+    <div>
+      <button v-on:click="onBtFirst()">To First</button>
+      <button v-on:click="onBtLast()" id="btLast">To Last</button>
+      <button v-on:click="onBtPrevious()">To Previous</button>
+      <button v-on:click="onBtNext()">To Next</button>
+      <button v-on:click="onBtPageFive()">To Page 5</button>
+      <button v-on:click="onBtPageFifty()">To Page 50</button>
+    </div>
   </div>
 </template>
 
 <script>
 import { AgGridVue } from "ag-grid-vue";
+import "ag-grid-enterprise";
+import "ag-grid-community";
 import axios from "axios";
 import star from "../assets/star.svg";
 import up from "../assets/up.svg";
 import down from "../assets/down.svg";
-import opportunity from "../assets/icon-opportunity.svg";
+import SearchVolumeRenderer from "./SearchVolumeRenderer";
+import RankRenderer from "./RankRenderer";
+import RankChangeRenderer from "./RankChangeRenderer";
+import LandingPageRenderer from "./LandingPageRenderer";
+import KeywordRenderer from "./KeywordRenderer";
+import PixelRankChangeRenderer from "./PixelRankChangeRenderer";
+import CpcRenderer from "./CpcRenderer.vue";
+import CustomHeader from "./CustomHeader";
+import {
+  setText,
+  setLastButtonDisabled,
+  setRowData
+} from "../helpers/pagination";
 export default {
   name: "Grid",
 
@@ -38,6 +67,8 @@ export default {
       gridColumnApi: null,
       columnDefs: null,
       rowData: null,
+      frameworkComponents: null,
+      context: null,
 
       defaultColDefs: {
         enableValue: true,
@@ -45,69 +76,92 @@ export default {
         enablePivot: true,
         sortable: true,
         filter: true,
-        unSortIcon: false,
-        icons: {
-          sortAscending: `<i class="fas fa-sort-up"></i>`,
-          sortDescending: `<i class="fas fa-sort-down"></i>`
-        }
+        unSortIcon: false
       }
     };
   },
 
   methods: {
-    onCellClicked() {
-      console.log("clicked");
+    onPaginationChanged() {
+      console.log("onPaginationPageLoaded");
+      if (this.gridApi) {
+        setText("#lbLastPageFound", this.gridApi.paginationIsLastPageFound());
+        setText("#lbPageSize", this.gridApi.paginationGetPageSize());
+        setText("#lbCurrentPage", this.gridApi.paginationGetCurrentPage() + 1);
+        setText("#lbTotalPages", this.gridApi.paginationGetTotalPages());
+        setLastButtonDisabled(!this.gridApi.paginationIsLastPageFound());
+      }
+    },
+    onBtFirst() {
+      this.gridApi.paginationGoToFirstPage();
+    },
+    onBtLast() {
+      console.log("here");
+      this.gridApi.paginationGoToLastPage();
+    },
+    onBtNext() {
+      this.gridApi.paginationGoToNextPage();
+    },
+    onBtPrevious() {
+      this.gridApi.paginationGoToPreviousPage();
+    },
+    onBtPageFive() {
+      this.gridApi.paginationGoToPage(4);
+    },
+    onBtPageFifty() {
+      this.gridApi.paginationGoToPage(49);
+    },
+    onCellClicked(event) {
+      console.log("clicked", event);
+    },
+
+    deneme(event) {
+      console.log("myevent", event);
+      console.log("deneme");
+    },
+
+    onGridReady(params) {
+      console.log("on grid ready", params);
+    },
+    refresh() {
+      return true;
     }
   },
   mounted() {
     this.gridApi = this.gridOptions.api;
     this.gridColumnApi = this.gridOptions.columnApi;
-    this.gridOptions.rowHeight = 48;
+    this.gridOptions.rowHeight = 56;
   },
+
   beforeMount() {
     this.columnDefs = [
-      { headerName: "KEYWORDS", field: "keyword", width: 300 },
+      {
+        headerName: "KEYWORDS",
+        field: "keyword",
+        cellRendererFramework: KeywordRenderer,
+        width: 300
+      },
       {
         headerName: "SEARCH VOLUME",
         field: "avgSearchVolume",
-        cellRenderer: function(params) {
-          return ` <div class="cell-with-icon"> <img class="opportunity-icon" src=${opportunity} /> ${params.value} </div>`;
+        onCellClicked: function() {
+          console.log("CLICKED");
         },
+        cellRendererFramework: SearchVolumeRenderer,
+        cellRendererParams: { showModal: true },
         width: 200
       },
       {
         headerName: "RANK",
         field: "rank",
-        cellRenderer: function(params) {
-          return ` <div class="cell-with-icon"> ${params.value} <img class="star-icon" width='20px' src=${star} /> </div>  `;
-        },
+        cellRendererFramework: RankRenderer,
         width: 150
       },
       {
         headerName: "CHANGE",
         field: "diffRank",
-        cellRenderer: params => {
-          return params.value > 0 ? `+${params.value}` : `${params.value}`;
-        },
-        cellStyle: params => {
-          if (params.value > 0) {
-            return {
-              color: "#21D99B",
-              borderRadius: "12px",
-              backgroundColor: "rgba(33, 217, 155, 0.1)",
-              textAlign: "center"
-            };
-          } else if (params.value == 0) {
-            return { textAlign: "center" };
-          } else {
-            return {
-              color: "#FF4D79",
-              backgroundColor: "rgba(255, 77, 121, 0.1)",
-              borderRadius: "12px",
-              textAlign: "center"
-            };
-          }
-        },
+        cellRendererFramework: RankChangeRenderer,
+
         width: 150
       },
       {
@@ -117,45 +171,33 @@ export default {
       {
         headerName: "CHANGE",
         field: "diffPixelRank",
-        cellRenderer: params => {
-          return params.value > 0 ? `+${params.value}` : `${params.value}`;
-        },
-        cellStyle: params => {
-          if (params.value > 0) {
-            return {
-              color: "#21D99B",
-              borderRadius: "12px",
-              backgroundColor: "rgba(33, 217, 155, 0.1)",
-              textAlign: "center"
-            };
-          } else if (params.value == 0) {
-            return { textAlign: "center" };
-          } else {
-            return {
-              color: "#FF4D79",
-              backgroundColor: "rgba(255, 77, 121, 0.1)",
-              borderRadius: "12px",
-              textAlign: "center"
-            };
-          }
-        }
+        cellRendererFramework: PixelRankChangeRenderer
       },
       {
         headerName: "URL-PAGE",
         field: "landingPage",
-        width: 450,
-        cellRenderer: params => {
-          console.log("params", params);
-          return `<a class="cell-link" href=${params.value}> ${params.value}</a>`;
-        },
-        cellStyle: function() {
-          return {
-            color: "#7373FF"
-          };
-        }
+        cellRendererFramework: LandingPageRenderer,
+        width: 400
       },
-      { headerName: "CPC-$", field: "cpc" }
+      {
+        headerName: "CPC-$",
+        field: "cpc",
+        flex: 1,
+        cellRendererFramework: CpcRenderer
+      }
     ];
+    this.context = { componentParent: this };
+
+    this.frameworkComponents = {
+      searchVolumeRenderer: SearchVolumeRenderer,
+      rankRenderer: RankRenderer,
+      rankChangeRenderer: RankChangeRenderer,
+      landingPageRenderer: LandingPageRenderer,
+      keywordRenderer: KeywordRenderer,
+      pixelRankChangeRenderer: PixelRankChangeRenderer,
+      cpcRenderer: CpcRenderer,
+      agColumnHeader: CustomHeader
+    };
 
     axios
       .post("http://95.217.76.23:5454/api/list_keyword_info_for_domain", {
@@ -179,16 +221,4 @@ export default {
 @import "../../node_modules/ag-grid-community/src/styles/ag-theme-balham/sass/ag-theme-balham-mixin";
 @import "../styles/variables.scss";
 @import "../styles/grid.scss";
-
-.grid {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 12px;
-}
-
-#myGrid {
-  width: 100% !important;
-  height: 750px !important;
-}
 </style>
