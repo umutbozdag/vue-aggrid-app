@@ -1,4 +1,18 @@
 @import "./variables.scss";
+
+.grid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px;
+  flex-direction: column;
+}
+
+#myGrid {
+  width: 100% !important;
+  height: 750px !important;
+}
+
 .ag-theme-balham {
   font-size: 16px;
   font-family: "Barlow", sans-serif;
@@ -18,10 +32,16 @@
 .ag-header-cell:first-child {
   border-right: 2px solid $border-color;
 }
-
 .ag-theme-balham .ag-ltr .ag-cell:first-child {
   border-right: 2px solid $border-color;
 }
+
+// .ag-theme-balham .ag-ltr .ag-cell:nth-child(4) {
+//   width: 50px !important;
+//   height: 45px;
+//   margin-left: 12px;
+//   margin-top: 6px;
+// }
 
 .ag-theme-balham .ag-header-cell::after {
   background-color: transparent !important;
@@ -36,16 +56,6 @@
   color: #6b6b99;
   span {
     width: 50px;
-    .cell-with-icon {
-      display: flex;
-      align-items: center;
-      .opportunity-icon {
-        margin-right: 12px;
-      }
-      .star-icon {
-        margin-left: 12px;
-      }
-    }
   }
 }
 
@@ -71,5 +81,10 @@
   border: none;
 }
 .ag-theme-balham .ag-header {
-  border-top: 2px solid $border-color;
+  border-top: 1px solid $border-color;
+  border-bottom: 1px solid $border-color;
+}
+
+.ag-header-cell-sortable {
+  cursor: default;
 }
