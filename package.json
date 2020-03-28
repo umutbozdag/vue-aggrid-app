@@ -8,9 +8,12 @@
   },
   "dependencies": {
     "ag-grid-community": "^23.0.2",
+    "ag-grid-enterprise": "^23.0.2",
     "ag-grid-vue": "^23.0.2",
+    "apexcharts": "^3.17.0",
     "axios": "^0.19.2",
     "vue": "^2.6.11",
+    "vue-apexcharts": "^1.5.2",
     "vue-property-decorator": "^8.4.1",
     "vue-router": "^3.1.5"
   },
