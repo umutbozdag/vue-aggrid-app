@@ -5,17 +5,34 @@
     <div class="home__container">
       <grid />
     </div>
+    <modal />
   </div>
 </template>
 
 <script>
 import Grid from "../components/Grid";
+import Modal from "../components/Modal";
 
 export default {
   name: "Home",
 
   components: {
-    Grid
+    Grid,
+    Modal
+  },
+
+  methods: {
+    openModal() {
+      this.showModal = true;
+      console.log(this.params, "MODAL");
+      axios
+        .post("http://95.217.76.23:5454/api/get_specific_search_volume", {
+          keyword: this.params.data.keyword,
+          country: "tr",
+          lang: "tr"
+        })
+        .then(result => console.log("specific search volume data", result));
+    }
   }
 };
 </script>
