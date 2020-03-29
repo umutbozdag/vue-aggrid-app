@@ -10,5 +10,5 @@ export default Vue.extend({});
 </script>
 
 <style lang="scss" scoped>
-@import "../styles/rank-renderer.scss";
+@import "../styles/rank-change-cell.scss";
 </style>

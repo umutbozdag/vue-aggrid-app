@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div @keypress.esc="deneme()" v-if="openModal" id="myModal" class="modal">
+    <div v-if="openModal" id="myModal" class="modal">
       <div class="modal-content">
         <h2 class="modal-title">
           Search Volume
@@ -32,14 +32,16 @@ export default {
       this.keyword = data.data.keyword;
       this.openModal = true;
       axios
-        .post("http://95.217.76.23:5454/api/get_specific_search_volume", {
-          keyword: data.data.keyword,
-          country: "tr",
-          lang: "tr"
-        })
+        .post(
+          `${process.env.VUE_APP_BASE_URL}/api/get_specific_search_volume`,
+          {
+            keyword: data.data.keyword,
+            country: "tr",
+            lang: "tr"
+          }
+        )
         .then(result => {
           this.volumeData = result.data;
-          console.log(result);
         });
     });
   },
@@ -53,17 +55,14 @@ export default {
   },
   methods: {
     closeModal() {
-      console.log("i am working");
       this.openModal = false;
-    },
-    deneme() {
-      console.log("denemee");
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
+@import "../styles/variables.scss";
 .modal {
   display: flex;
   justify-content: center;
@@ -86,13 +85,13 @@ export default {
   margin-left: 5%;
 }
 .modal-title {
-  color: #9999cc;
+  color: $modal-title;
   padding: 0;
   margin-top: 3%;
   margin-bottom: 0;
 }
 .modal-keyword {
-  color: #6b6b99;
+  color: $modal-keyword;
 }
 
 .modal-content {

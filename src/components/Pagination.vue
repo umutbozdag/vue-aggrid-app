@@ -57,6 +57,7 @@ export default {
   justify-content: flex-end;
   width: 100%;
   margin-right: 5%;
+  margin: 16px 5% 16px 0;
   font-weight: 600;
   font-size: 16px;
   color: #6b6b99;

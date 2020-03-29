@@ -57,9 +57,6 @@ export default {
             labels: {
               formatter: function(value) {
                 return value;
-                // if (value < 99999) return value;
-                // if (value > 99999) return parseFloat(value.toFixed(2));
-                // else if (value > 999999) return value + "M";
               },
               style: {
                 colors: "#9999CC",
@@ -93,8 +90,6 @@ export default {
     setData() {
       this.volumeSeries = this.volumeData.map(el => el.volume);
       this.volumeCategories = this.volumeData.map(el => el.date);
-      console.log(this.volumeSeries);
-      console.log(this.volumeCategories);
       this.series = [
         {
           data: this.volumeSeries
@@ -111,12 +106,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.chart-container {
-}
-/* @media only screen and (max-width: 1440px) {
-  .chart-container {
-    width: 900px !important;
-    height: 200px !important;
-  }
-} */
 </style>

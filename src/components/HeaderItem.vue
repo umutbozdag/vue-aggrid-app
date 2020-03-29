@@ -39,7 +39,6 @@ export default Vue.extend({
   },
   beforeMount() {},
   mounted() {
-    console.log(this.params);
     this.params.column.addEventListener("sortChanged", this.onSortChanged);
     this.onSortChanged();
   },
@@ -67,6 +66,8 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
+@import "../styles/variables.scss";
+
 .header-item {
   display: flex;
   align-items: center;
@@ -90,12 +91,12 @@ export default Vue.extend({
   }
 }
 .active {
-  color: rgb(115, 115, 255, 0.4);
+  color: $header-item-active;
 }
 .inactive {
-  color: #dadafa;
+  color: $header-item-inactive;
 }
 .customHeaderLabel {
-  color: #9999cc;
+  color: $custom-header-label;
 }
 </style>

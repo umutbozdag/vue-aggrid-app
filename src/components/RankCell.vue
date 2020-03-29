@@ -13,12 +13,11 @@ export default Vue.extend({});
 
 <style lang="scss" scoped>
 .cell-with-icon {
-  width: 50px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
   width: 100%;
-  text-align: center;
+  height: 100%;
 }
 
 .star-icon {

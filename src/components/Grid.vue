@@ -15,7 +15,6 @@
       :frameworkComponents="frameworkComponents"
       :context="context"
       :suppressPaginationPanel="true"
-      :suppressScrollOnNewData="true"
       rowHeight="56"
       :animateRows="true"
     ></ag-grid-vue>
@@ -26,8 +25,8 @@
 
 <script>
 import { AgGridVue } from "ag-grid-vue";
-import "ag-grid-enterprise";
 import "ag-grid-community";
+import "ag-grid-enterprise";
 import axios from "axios";
 import star from "../assets/star.svg";
 import up from "../assets/up.svg";
@@ -41,6 +40,7 @@ import PixelRankChangeCell from "./PixelRankChangeCell";
 import CpcCell from "./CpcCell.vue";
 import HeaderItem from "./HeaderItem";
 import Pagination from "./Pagination";
+import PixelRankCell from "./PixelRankCell";
 
 export default {
   name: "Grid",
@@ -74,15 +74,17 @@ export default {
   methods: {
     getData() {
       axios
-        .post("http://95.217.76.23:5454/api/list_keyword_info_for_domain", {
-          firstDate: "2020-02-25",
-          lastDate: "2020-02-20",
-          domain: "akakce.com",
-          limit: "100",
-          page: 1
-        })
+        .post(
+          `${process.env.VUE_APP_BASE_URL}/api/list_keyword_info_for_domain`,
+          {
+            firstDate: "2020-02-25",
+            lastDate: "2020-02-20",
+            domain: "akakce.com",
+            limit: "100",
+            page: 1
+          }
+        )
         .then(result => {
-          console.log(result.data);
           this.rowData = result.data;
         });
     }
@@ -122,7 +124,8 @@ export default {
       },
       {
         headerName: "PX RANK",
-        field: "pixelRank"
+        field: "pixelRank",
+        cellRendererFramework: PixelRankCell
       },
       {
         headerName: "CHANGE",
@@ -138,8 +141,8 @@ export default {
       {
         headerName: "CPC-$",
         field: "cpc",
-        flex: 1,
-        cellRendererFramework: CpcCell
+        cellRendererFramework: CpcCell,
+        width: 280
       }
     ];
     this.context = { componentParent: this };
@@ -152,6 +155,7 @@ export default {
       keywordRenderer: KeywordCell,
       pixelRankChangeRenderer: PixelRankChangeCell,
       cpcRenderer: CpcCell,
+      pixelRankCell: PixelRankCell,
       agColumnHeader: HeaderItem
     };
 
@@ -166,82 +170,4 @@ export default {
 @import "../../node_modules/ag-grid-community/src/styles/ag-theme-balham/sass/ag-theme-balham-mixin";
 @import "../styles/variables.scss";
 @import "../styles/grid.scss";
-
-.pagination {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  width: 100%;
-  margin-right: 5%;
-  font-weight: 600;
-  font-size: 16px;
-  color: #6b6b99;
-  padding: 6px;
-  margin-top: 16px;
-}
-
-.options {
-  border: 1px solid #e2e1eb;
-  padding: 4px;
-  border-radius: 4px;
-  margin-right: 16px;
-}
-select {
-  appearance: none;
-  user-select: none;
-  padding: 10px;
-  outline: none;
-  -webkit-padding-start: 9px;
-  background-image: url("../assets/chevron_down.svg");
-  background-size: 18px;
-  background-position: center right;
-  background-repeat: no-repeat;
-  border: none;
-  border-radius: 2px;
-  font-size: 16px;
-  margin: 0;
-  overflow: hidden;
-  padding-top: 2px;
-  padding-bottom: 2px;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  margin-right: 2px;
-  color: #6b6b99;
-  width: 60px;
-}
-
-option {
-  appearance: none;
-  font-weight: bold;
-}
-
-.pagination-icon {
-  background: transparent;
-  border: 1px solid #e3e3fc;
-  padding: 6px;
-  border-radius: 4px;
-  font-size: 16px;
-  width: 20px;
-  text-align: center;
-  cursor: pointer;
-}
-
-.current-page {
-  margin: 0 12px;
-  border: 1px solid #e2e1eb;
-  padding: 4px;
-  border-radius: 4px;
-  font-size: 16px;
-  width: 35px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.per-page {
-  margin-right: 11px;
-}
-.total-pages {
-  margin-left: 12px;
-}
 </style>
