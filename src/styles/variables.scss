@@ -1,33 +1,96 @@
-// grid
+:root {
+  // grid
 
-$header-bg: rgb(115, 115, 255, 0.03);
-$header-item-color: #8282bb;
-$border-color: #e3e3fc;
-$grid-cell-color: #6b6b99;
+  --header-bg: rgb(115, 115, 255, 0.03);
+  --header-item-color: #8282bb;
+  --border-color: #e3e3fc;
+  --grid-cell-color: #6b6b99;
+  --grid-row-bg: white;
 
-$cell-link: #7373ff;
-$cell-link-hover: #ababec;
-$border-color: rgb(49, 49, 77, 0.1);
+  --cell-link: #7373ff;
+  --cell-link-hover: #ababec;
+  --border-color: rgb(49, 49, 77, 0.1);
 
-// ranks
-$change-pos-bg: rgba(33, 217, 155, 0.1);
-$change-pos-color: #21d99b;
+  // ranks
+  --change-pos-bg: rgba(33, 217, 155, 0.1);
+  --change-pos-color: #21d99b;
 
-$change-neg-bg: rgba(255, 77, 121, 0.1);
-$change-neg-color: #ff4d79;
+  --change-neg-bg: rgba(255, 77, 121, 0.1);
+  --change-neg-color: #ff4d79;
 
-// home
-$home-title-color: #6b6b99;
-$home-bg-color: #ffffff;
+  // home
+  --home-title-color: #6b6b99;
+  --home-bg-color: #ffffff;
 
-// app
-$app-bg-color: #f7f7fc;
+  // app
+  --app-bg-color: #f7f7fc;
 
-// header item
-$header-item-active: rgb(115, 115, 255, 0.4);
-$custom-header-label: #9999cc;
-$header-item-inactive: #dadafa;
+  // header item
+  --header-item-active: rgb(115, 115, 255, 0.4);
+  --custom-header-label: #9999cc;
+  --header-item-inactive: #dadafa;
 
-// modal
-$modal-title: #9999cc;
-$modal-keyword: #6b6b99;
+  // modal
+  --modal-title: #9999cc;
+  --modal-keyword: #6b6b99;
+
+  // pagination
+  --pagination-color: #6b6b99;
+  --options-border: #e2e1eb;
+  --select-color: #6b6b99;
+  --pagination-icon-border: #e3e3fc;
+  --current-page-border: #e2e1eb;
+}
+
+.dark {
+  // app
+  --app-bg-color: rgb(27, 28, 29);
+
+  // grid
+
+  --header-bg: rgb(27, 29, 30);
+  --header-item-color: rgb(153, 181, 204);
+  --border-color: rgba(74, 74, 116, 0.1);
+  --grid-cell-color: rgb(182, 177, 166);
+  --grid-row-bg: rgb(24, 26, 27);
+
+  --cell-link: rgb(115, 166, 255);
+  --cell-link-hover: rgb(171, 195, 236);
+  --border-color: rgb(49, 49, 77, 0.1);
+
+  --home-title-color: rgb(182, 177, 166);
+  --home-bg-color: rgb(24, 26, 27);
+
+  // header item
+  --header-item-active: rgb(218, 230, 250);
+  --header-item-inactive: rgba(115, 166, 255, 0.4);
+  --custom-header-label: rgb(153, 179, 204);
+
+  // ranks
+  --change-pos-bg: rgba(24, 160, 114, 0.1);
+  --change-pos-color: rgb(92, 230, 184);
+
+  --change-neg-bg: rgba(158, 0, 39, 0.1);
+  --change-neg-color: rgb(255, 77, 121);
+
+  // scrollbar
+  ::-webkit-scrollbar {
+    background-color: #1c1e1f;
+    color: #c5c1b9;
+  }
+
+  ::-webkit-scrollbar-corner {
+    background-color: #181a1b;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #2a2c2e;
+  }
+
+  // pagination
+  --pagination-color: #6b6b99;
+  --options-border: rgb(51, 49, 73);
+  --select-color: #6b6b99;
+  --pagination-icon-border: rgb(51, 49, 73);
+  --current-page-border: rgb(51, 49, 73);
+}

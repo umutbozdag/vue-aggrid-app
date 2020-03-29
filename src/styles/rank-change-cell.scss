@@ -11,11 +11,11 @@
   height: 22px;
 }
 .green-box {
-  background: $change-pos-bg;
-  color: $change-pos-color;
+  background: var(--change-pos-bg);
+  color: var(--change-pos-color);
 }
 
 .red-box {
-  background: $change-neg-bg;
-  color: $change-neg-color;
+  background: var(--change-neg-bg);
+  color: var(--change-neg-color);
 }
