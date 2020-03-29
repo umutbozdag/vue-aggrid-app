@@ -2,7 +2,6 @@
 <template>
   <div class="grid">
     <ag-grid-vue
-      v-on:event-open-modal="deneme($event)"
       id="myGrid"
       class="ag-theme-balham"
       :columnDefs="columnDefs"
@@ -12,7 +11,6 @@
       :paginationPageSize="paginationPageSize"
       :defaultColDef="defaultColDefs"
       :gridOptions="gridOptions"
-      @cellClicked="onCellClicked"
       headerHeight="48"
       :frameworkComponents="frameworkComponents"
       :context="context"
@@ -20,6 +18,7 @@
       :suppressPaginationPanel="true"
       @pagination-changed="onPaginationChanged"
       :suppressScrollOnNewData="true"
+      rowHeight="56"
     ></ag-grid-vue>
 
     <div class="pagination">
@@ -49,20 +48,14 @@ import axios from "axios";
 import star from "../assets/star.svg";
 import up from "../assets/up.svg";
 import down from "../assets/down.svg";
-import SearchVolumeRenderer from "./SearchVolumeRenderer";
-import RankRenderer from "./RankRenderer";
-import RankChangeRenderer from "./RankChangeRenderer";
-import LandingPageRenderer from "./LandingPageRenderer";
-import KeywordRenderer from "./KeywordRenderer";
-import PixelRankChangeRenderer from "./PixelRankChangeRenderer";
-import CpcRenderer from "./CpcRenderer.vue";
-import CustomHeader from "./CustomHeader";
-
-import {
-  setText,
-  setLastButtonDisabled,
-  setRowData
-} from "../helpers/pagination";
+import SearchVolumeCell from "./SearchVolumeCell";
+import RankCell from "./RankCell";
+import RankChangeCell from "./RankChangeCell";
+import LandingPageCell from "./LandingPageCell";
+import KeywordCell from "./KeywordCell";
+import PixelRankChangeCell from "./PixelRankChangeCell";
+import CpcCell from "./CpcCell.vue";
+import HeaderItem from "./HeaderItem";
 
 export default {
   name: "Grid",
@@ -98,16 +91,6 @@ export default {
       this.gridApi.paginationSetPageSize(Number(value));
     },
 
-    onPaginationChanged() {
-      console.log("onPaginationPageLoaded");
-      if (this.gridApi) {
-        setText("#lbLastPageFound", this.gridApi.paginationIsLastPageFound());
-        setText("#lbPageSize", this.gridApi.paginationGetPageSize());
-        setText("#lbCurrentPage", this.gridApi.paginationGetCurrentPage() + 1);
-        setText("#lbTotalPages", this.gridApi.paginationGetTotalPages());
-        setLastButtonDisabled(!this.gridApi.paginationIsLastPageFound());
-      }
-    },
     getTotalPages() {
       if (this.gridApi) {
         return this.gridApi.paginationGetTotalPages();
@@ -124,15 +107,6 @@ export default {
     onBtPrevious() {
       this.gridApi.paginationGoToPreviousPage();
     },
-    onCellClicked(event) {
-      console.log("clicked", event);
-    },
-
-    deneme(event) {
-      console.log("myevent", event);
-      console.log("deneme");
-    },
-
     onGridReady(params) {
       console.log("on grid ready", params);
     },
@@ -143,7 +117,6 @@ export default {
   mounted() {
     this.gridApi = this.gridOptions.api;
     this.gridColumnApi = this.gridOptions.columnApi;
-    this.gridOptions.rowHeight = 56;
   },
 
   beforeMount() {
@@ -151,7 +124,7 @@ export default {
       {
         headerName: "KEYWORDS",
         field: "keyword",
-        cellRendererFramework: KeywordRenderer,
+        cellRendererFramework: KeywordCell,
         width: 300
       },
       {
@@ -160,20 +133,20 @@ export default {
         onCellClicked: function() {
           console.log("CLICKED");
         },
-        cellRendererFramework: SearchVolumeRenderer,
+        cellRendererFramework: SearchVolumeCell,
         cellRendererParams: { showModal: true },
         width: 200
       },
       {
         headerName: "RANK",
         field: "rank",
-        cellRendererFramework: RankRenderer,
+        cellRendererFramework: RankCell,
         width: 150
       },
       {
         headerName: "CHANGE",
         field: "diffRank",
-        cellRendererFramework: RankChangeRenderer,
+        cellRendererFramework: RankChangeCell,
 
         width: 150
       },
@@ -184,32 +157,32 @@ export default {
       {
         headerName: "CHANGE",
         field: "diffPixelRank",
-        cellRendererFramework: PixelRankChangeRenderer
+        cellRendererFramework: PixelRankChangeCell
       },
       {
         headerName: "URL-PAGE",
         field: "landingPage",
-        cellRendererFramework: LandingPageRenderer,
+        cellRendererFramework: LandingPageCell,
         width: 400
       },
       {
         headerName: "CPC-$",
         field: "cpc",
         flex: 1,
-        cellRendererFramework: CpcRenderer
+        cellRendererFramework: CpcCell
       }
     ];
     this.context = { componentParent: this };
 
     this.frameworkComponents = {
-      searchVolumeRenderer: SearchVolumeRenderer,
-      rankRenderer: RankRenderer,
-      rankChangeRenderer: RankChangeRenderer,
-      landingPageRenderer: LandingPageRenderer,
-      keywordRenderer: KeywordRenderer,
-      pixelRankChangeRenderer: PixelRankChangeRenderer,
-      cpcRenderer: CpcRenderer,
-      agColumnHeader: CustomHeader
+      searchVolumeRenderer: SearchVolumeCell,
+      rankRenderer: RankCell,
+      rankChangeRenderer: RankChangeCell,
+      landingPageRenderer: LandingPageCell,
+      keywordRenderer: KeywordCell,
+      pixelRankChangeRenderer: PixelRankChangeCell,
+      cpcRenderer: CpcCell,
+      agColumnHeader: HeaderItem
     };
 
     axios
@@ -245,6 +218,7 @@ export default {
   font-size: 16px;
   color: #6b6b99;
   padding: 6px;
+  margin-top: 16px;
 }
 
 .options {

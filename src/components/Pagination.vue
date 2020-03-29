@@ -5,15 +5,15 @@
     <div class="options">
       <select v-on:change="onPageSizeChanged()" id="page-size">
         <option value="20" selected>20</option>
+        <option value="50">50</option>
         <option value="100">100</option>
         <option value="500">500</option>
-        <option value="1000">1000</option>
       </select>
     </div>
     <i v-on:click="onBtPrevious()" class="fas fa-chevron-left pagination-icon"></i>
     <span class="current-page">{{getCurrentPage()}}</span>
     <i v-on:click="onBtNext()" class="fas fa-chevron-right pagination-icon"></i>
-    <span>of {{getTotalPages()}}</span>
+    <span class="total-pages">of {{getTotalPages()}}</span>
   </div>
 </template>
 
@@ -25,7 +25,7 @@ import {
 } from "../helpers/pagination";
 
 export default {
-  props: ["paginationPageSize"],
+  props: [],
   data() {
     return {
       gridApi: null,
@@ -44,16 +44,6 @@ export default {
       this.gridApi.paginationSetPageSize(Number(value));
     },
 
-    onPaginationChanged() {
-      console.log("onPaginationPageLoaded");
-      if (this.gridApi) {
-        setText("#lbLastPageFound", this.gridApi.paginationIsLastPageFound());
-        setText("#lbPageSize", this.gridApi.paginationGetPageSize());
-        setText("#lbCurrentPage", this.gridApi.paginationGetCurrentPage() + 1);
-        setText("#lbTotalPages", this.gridApi.paginationGetTotalPages());
-        setLastButtonDisabled(!this.gridApi.paginationIsLastPageFound());
-      }
-    },
     getTotalPages() {
       if (this.gridApi) {
         return this.gridApi.paginationGetTotalPages();
@@ -69,9 +59,6 @@ export default {
     },
     onBtPrevious() {
       this.gridApi.paginationGoToPreviousPage();
-    },
-    onCellClicked(event) {
-      console.log("clicked", event);
     }
   }
 };
@@ -83,7 +70,7 @@ export default {
   align-items: center;
   justify-content: flex-end;
   width: 100%;
-  margin-right: 10%;
+  margin-right: 5%;
   font-weight: 600;
   font-size: 16px;
   color: #6b6b99;
@@ -101,8 +88,7 @@ select {
   user-select: none;
   padding: 10px;
   outline: none;
-  -webkit-padding-start: 2px;
-  -moz-padding-start: 2px;
+  -webkit-padding-start: 9px;
   background-image: url("../assets/chevron_down.svg");
   background-size: 18px;
   background-position: center right;
@@ -116,8 +102,9 @@ select {
   padding-bottom: 2px;
   text-overflow: ellipsis;
   white-space: nowrap;
-  margin-right: 6px;
+  margin-right: 2px;
   color: #6b6b99;
+  width: 60px;
 }
 
 option {
@@ -127,23 +114,31 @@ option {
 
 .pagination-icon {
   background: transparent;
-  border: 1px solid #e2e1eb;
-  padding: 4px;
+  border: 1px solid #e3e3fc;
+  padding: 6px;
   border-radius: 4px;
   font-size: 16px;
+  width: 20px;
+  text-align: center;
+  cursor: pointer;
 }
 
 .current-page {
   margin: 0 12px;
-  width: 32px;
-  text-align: center;
   border: 1px solid #e2e1eb;
   padding: 4px;
   border-radius: 4px;
   font-size: 16px;
+  width: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .per-page {
   margin-right: 11px;
+}
+.total-pages {
+  margin-left: 12px;
 }
 </style>

@@ -5,14 +5,6 @@
       class="header-items"
     >
       <div class="header-item">
-        <div
-          v-if="params.enableMenu"
-          ref="menuButton"
-          class="customHeaderMenuButton"
-          @click="onMenuClicked($event)"
-        >
-          <i class="fa" :class="params.menuIcon"></i>
-        </div>
         <div class="sort-icons">
           <i
             v-if="params.enableSorting"
@@ -77,6 +69,7 @@ export default Vue.extend({
 <style lang="scss" scoped>
 .header-item {
   display: flex;
+  align-items: center;
 }
 
 .unsortable {
@@ -89,9 +82,9 @@ export default Vue.extend({
   justify-content: center;
   align-items: center;
   margin-top: 14px;
-  margin-right: 12px;
+  margin-right: 7px;
   i {
-    margin-top: -12px;
+    margin-top: -16px;
     font-size: 20px;
     cursor: pointer;
   }
@@ -103,7 +96,6 @@ export default Vue.extend({
   color: #dadafa;
 }
 .customHeaderLabel {
-  margin-top: 5px;
   color: #9999cc;
 }
 </style>

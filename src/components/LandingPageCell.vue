@@ -1,6 +1,6 @@
 <template>
   <div>
-    <a class="cell-link" :href="this.params.value">{{this.params.value}}</a>
+    <a class="cell-link" target="blank" :href="this.params.value">{{this.params.value}}</a>
   </div>
 </template>
 
