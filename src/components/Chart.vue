@@ -35,6 +35,7 @@ export default {
         },
         colors: ["#9999CC"],
         chart: {
+          foreColor: "#9999CC",
           id: "searchVolumeChart"
         },
         xaxis: {
