@@ -8,7 +8,9 @@
 <script>
 import Vue from "vue";
 
-export default Vue.extend({});
+export default Vue.extend({
+  name: "RankCell"
+});
 </script>
 
 <style lang="scss" scoped>

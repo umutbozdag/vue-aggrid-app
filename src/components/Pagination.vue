@@ -19,6 +19,7 @@
 
 <script>
 export default {
+  name: "Pagination",
   props: ["paginationPageSize", "gridApi"],
 
   methods: {
@@ -60,15 +61,16 @@ export default {
   margin: 16px 5% 16px 0;
   font-weight: 600;
   font-size: 16px;
-  color: #6b6b99;
+  color: var(--pagination-color);
   padding: 6px;
 }
 
 .options {
-  border: 1px solid #e2e1eb;
+  border: 1px solid var(--options-border);
   padding: 4px;
   border-radius: 4px;
   margin-right: 16px;
+  background: none;
 }
 select {
   appearance: none;
@@ -90,8 +92,9 @@ select {
   text-overflow: ellipsis;
   white-space: nowrap;
   margin-right: 2px;
-  color: #6b6b99;
+  color: var(--select-color);
   width: 60px;
+  background-color: transparent;
 }
 
 option {
@@ -101,7 +104,7 @@ option {
 
 .pagination-icon {
   background: transparent;
-  border: 1px solid #e3e3fc;
+  border: 1px solid var(--pagination-icon-border);
   padding: 6px;
   border-radius: 4px;
   font-size: 16px;
@@ -112,7 +115,7 @@ option {
 
 .current-page {
   margin: 0 12px;
-  border: 1px solid #e2e1eb;
+  border: 1px solid var(--current-page-border);
   padding: 4px;
   border-radius: 4px;
   font-size: 16px;

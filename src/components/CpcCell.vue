@@ -11,6 +11,6 @@ export default Vue.extend({
 
 <style lang="scss" scoped>
 span {
-  margin-left: 8px;
+  margin-left: 24px;
 }
 </style>

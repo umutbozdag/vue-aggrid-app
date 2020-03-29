@@ -17,7 +17,7 @@ import axios from "axios";
 import { bus } from "../main";
 
 export default Vue.extend({
-  components: {},
+  name: "SearchVolumeCell",
   data() {
     return {
       showModal: false

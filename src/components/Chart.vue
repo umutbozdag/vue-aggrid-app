@@ -10,6 +10,7 @@ import ApexCharts from "apexcharts";
 import { monthNames } from "../helpers/monthNames";
 
 export default {
+  name: "Chart",
   components: {
     apexchart: VueApexCharts
   },

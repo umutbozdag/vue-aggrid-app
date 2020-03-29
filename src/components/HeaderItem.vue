@@ -30,7 +30,8 @@
 import Vue from "vue";
 
 export default Vue.extend({
-  data: function() {
+  name: "HeaderItem",
+  data() {
     return {
       ascSort: null,
       descSort: null,
@@ -91,12 +92,12 @@ export default Vue.extend({
   }
 }
 .active {
-  color: $header-item-active;
+  color: var(--header-item-active);
 }
 .inactive {
-  color: $header-item-inactive;
+  color: var(--header-item-inactive);
 }
 .customHeaderLabel {
-  color: $custom-header-label;
+  color: var(--custom-header-label);
 }
 </style>
