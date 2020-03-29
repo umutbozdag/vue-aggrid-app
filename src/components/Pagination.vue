@@ -18,32 +18,14 @@
 </template>
 
 <script>
-import {
-  setText,
-  setLastButtonDisabled,
-  setRowData
-} from "../helpers/pagination";
-
 export default {
-  props: [],
-  data() {
-    return {
-      gridApi: null,
-      gridColumnApi: null
-    };
-  },
-
-  mounted() {
-    this.gridApi = this.gridOptions.api;
-    this.gridColumnApi = this.gridOptions.columnApi;
-  },
+  props: ["paginationPageSize", "gridApi"],
 
   methods: {
     onPageSizeChanged(newPageSize) {
       var value = document.getElementById("page-size").value;
       this.gridApi.paginationSetPageSize(Number(value));
     },
-
     getTotalPages() {
       if (this.gridApi) {
         return this.gridApi.paginationGetTotalPages();
@@ -55,10 +37,14 @@ export default {
       }
     },
     onBtNext() {
-      this.gridApi.paginationGoToNextPage();
+      if (this.gridApi) {
+        this.gridApi.paginationGoToNextPage();
+      }
     },
     onBtPrevious() {
-      this.gridApi.paginationGoToPreviousPage();
+      if (this.gridApi) {
+        this.gridApi.paginationGoToPreviousPage();
+      }
     }
   }
 };
