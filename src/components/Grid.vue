@@ -14,29 +14,13 @@
       headerHeight="48"
       :frameworkComponents="frameworkComponents"
       :context="context"
-      @grid-ready="onGridReady"
       :suppressPaginationPanel="true"
-      @pagination-changed="onPaginationChanged"
       :suppressScrollOnNewData="true"
       rowHeight="56"
+      :animateRows="true"
     ></ag-grid-vue>
 
-    <div class="pagination">
-      <span class="per-page">Per page:</span>
-
-      <div class="options">
-        <select v-on:change="onPageSizeChanged()" id="page-size">
-          <option value="20" selected>20</option>
-          <option value="50">50</option>
-          <option value="100">100</option>
-          <option value="500">500</option>
-        </select>
-      </div>
-      <i v-on:click="onBtPrevious()" class="fas fa-chevron-left pagination-icon"></i>
-      <span class="current-page">{{getCurrentPage()}}</span>
-      <i v-on:click="onBtNext()" class="fas fa-chevron-right pagination-icon"></i>
-      <span class="total-pages">of {{getTotalPages()}}</span>
-    </div>
+    <pagination :gridApi="gridApi" :paginationPageSize="paginationPageSize" />
   </div>
 </template>
 
@@ -56,12 +40,14 @@ import KeywordCell from "./KeywordCell";
 import PixelRankChangeCell from "./PixelRankChangeCell";
 import CpcCell from "./CpcCell.vue";
 import HeaderItem from "./HeaderItem";
+import Pagination from "./Pagination";
 
 export default {
   name: "Grid",
 
   components: {
-    AgGridVue
+    AgGridVue,
+    Pagination
   },
   data() {
     return {
@@ -86,32 +72,19 @@ export default {
   },
 
   methods: {
-    onPageSizeChanged(newPageSize) {
-      var value = document.getElementById("page-size").value;
-      this.gridApi.paginationSetPageSize(Number(value));
-    },
-
-    getTotalPages() {
-      if (this.gridApi) {
-        return this.gridApi.paginationGetTotalPages();
-      }
-    },
-    getCurrentPage() {
-      if (this.gridApi) {
-        return this.gridApi.paginationGetCurrentPage() + 1;
-      }
-    },
-    onBtNext() {
-      this.gridApi.paginationGoToNextPage();
-    },
-    onBtPrevious() {
-      this.gridApi.paginationGoToPreviousPage();
-    },
-    onGridReady(params) {
-      console.log("on grid ready", params);
-    },
-    refresh() {
-      return true;
+    getData() {
+      axios
+        .post("http://95.217.76.23:5454/api/list_keyword_info_for_domain", {
+          firstDate: "2020-02-25",
+          lastDate: "2020-02-20",
+          domain: "akakce.com",
+          limit: "100",
+          page: 1
+        })
+        .then(result => {
+          console.log(result.data);
+          this.rowData = result.data;
+        });
     }
   },
   mounted() {
@@ -130,9 +103,6 @@ export default {
       {
         headerName: "SEARCH VOLUME",
         field: "avgSearchVolume",
-        onCellClicked: function() {
-          console.log("CLICKED");
-        },
         cellRendererFramework: SearchVolumeCell,
         cellRendererParams: { showModal: true },
         width: 200
@@ -185,18 +155,7 @@ export default {
       agColumnHeader: HeaderItem
     };
 
-    axios
-      .post("http://95.217.76.23:5454/api/list_keyword_info_for_domain", {
-        firstDate: "2020-02-25",
-        lastDate: "2020-02-20",
-        domain: "akakce.com",
-        limit: "100",
-        page: 1
-      })
-      .then(result => {
-        console.log(result.data);
-        this.rowData = result.data;
-      });
+    this.getData();
   }
 };
 </script>
