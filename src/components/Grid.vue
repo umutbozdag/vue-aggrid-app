@@ -16,7 +16,6 @@
       :context="context"
       :suppressPaginationPanel="true"
       rowHeight="56"
-      :animateRows="true"
     ></ag-grid-vue>
 
     <pagination :gridApi="gridApi" :paginationPageSize="paginationPageSize" />
@@ -95,6 +94,7 @@ export default {
   },
 
   beforeMount() {
+    // Columns
     this.columnDefs = [
       {
         headerName: "KEYWORDS",
@@ -106,7 +106,6 @@ export default {
         headerName: "SEARCH VOLUME",
         field: "avgSearchVolume",
         cellRendererFramework: SearchVolumeCell,
-        cellRendererParams: { showModal: true },
         width: 200
       },
       {
@@ -145,7 +144,6 @@ export default {
         width: 280
       }
     ];
-    this.context = { componentParent: this };
 
     this.frameworkComponents = {
       searchVolumeRenderer: SearchVolumeCell,

@@ -28,6 +28,7 @@ export default {
   },
 
   created() {
+    // When the open-modal event fires run this
     bus.$on("open-modal", data => {
       this.keyword = data.data.keyword;
       this.openModal = true;
@@ -85,13 +86,13 @@ export default {
   margin-left: 5%;
 }
 .modal-title {
-  color: $modal-title;
+  color: var(--modal-title);
   padding: 0;
   margin-top: 3%;
   margin-bottom: 0;
 }
 .modal-keyword {
-  color: $modal-keyword;
+  color: var(--modal-keyword);
 }
 
 .modal-content {

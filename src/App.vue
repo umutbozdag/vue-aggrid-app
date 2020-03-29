@@ -9,7 +9,7 @@
 
 #app {
   font-family: "Barlow", sans-serif;
-  background: $app-bg-color;
+  background: var(--app-bg-color);
   padding: 4px;
 }
 body {
