@@ -9,11 +9,6 @@ const routes = [
     path: "/",
     name: "Home",
     component: Home
-  },
-  {
-    path: "/:id",
-    name: "Modal",
-    component: () => import("../views/SearchVolume.vue")
   }
 ];
 
