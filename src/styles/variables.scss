@@ -33,6 +33,8 @@
   // modal
   --modal-title: #9999cc;
   --modal-keyword: #6b6b99;
+  --modal-bg: #fff;
+  --modal-close: #9999cc;
 
   // pagination
   --pagination-color: #6b6b99;
@@ -41,6 +43,8 @@
   --pagination-icon-border: #e3e3fc;
   --current-page-border: #e2e1eb;
 }
+
+// DARK MODE
 
 .dark {
   // app
@@ -60,6 +64,12 @@
 
   --home-title-color: rgb(182, 177, 166);
   --home-bg-color: rgb(24, 26, 27);
+
+  // modal
+  --modal-title: rgb(153, 172, 204);
+  --modal-keyword: rgb(182, 177, 166);
+  --modal-bg: rgb(60, 64, 67);
+  --modal-close: rgb(153, 172, 204);
 
   // header item
   --header-item-active: rgb(218, 230, 250);

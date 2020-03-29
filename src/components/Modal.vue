@@ -97,7 +97,7 @@ export default {
 
 .modal-content {
   flex-direction: column;
-  background-color: #fefefe;
+  background: var(--modal-bg);
   margin: 13% auto;
   padding: 12px 24px;
   width: 40%;
@@ -113,7 +113,7 @@ export default {
   right: 0;
   margin-top: 3%;
   margin-right: 24px;
-  color: #9999cc;
+  color: var(--modal-close);
 }
 
 .close:hover,
