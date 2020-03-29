@@ -7,6 +7,7 @@
 <script>
 import VueApexCharts from "vue-apexcharts";
 import ApexCharts from "apexcharts";
+import { monthNames } from "../helpers/monthNames";
 
 export default {
   components: {
@@ -15,7 +16,7 @@ export default {
 
   props: ["volumeData"],
   mounted() {
-    this.trying();
+    this.setData();
   },
   data() {
     return {
@@ -36,43 +37,38 @@ export default {
           id: "searchVolumeChart"
         },
         xaxis: {
-          label: {
+          labels: {
             style: {
-              colors: ["#9999CC"]
+              colors: ["#9999CC"],
+              fontFamily: "Barlow, sans-serif"
             }
           },
 
           categories: [],
           labels: {
             formatter: function(value, timestamp) {
-              var monthNames = [
-                "JAN",
-                "FEB",
-                "MAR",
-                "APR",
-                "MAY",
-                "JUN",
-                "JUL",
-                "AUG",
-                "SEP",
-                "OCT",
-                "NOV",
-                "DEC"
-              ];
-
-              const date = new Date(timestamp); // The formatter function overrides format property
+              const date = new Date(timestamp);
               return monthNames[date.getMonth()];
             }
           }
         },
-        yaxis: {
-          show: true,
-          labels: {
-            style: {
-              colors: ["#9999CC"]
+        yaxis: [
+          {
+            labels: {
+              formatter: function(value) {
+                return value;
+                // if (value < 99999) return value;
+                // if (value > 99999) return parseFloat(value.toFixed(2));
+                // else if (value > 999999) return value + "M";
+              },
+              style: {
+                colors: "#9999CC",
+                fontFamily: "Barlow, sans-serif",
+                fontSize: "12"
+              }
             }
           }
-        },
+        ],
         responsive: [
           {
             breakpoint: 1024,
@@ -94,7 +90,7 @@ export default {
   },
 
   methods: {
-    trying() {
+    setData() {
       this.volumeSeries = this.volumeData.map(el => el.volume);
       this.volumeCategories = this.volumeData.map(el => el.date);
       console.log(this.volumeSeries);
@@ -110,9 +106,7 @@ export default {
         }
       });
     }
-  },
-
-  formatDate(value, timestamp) {}
+  }
 };
 </script>
 
