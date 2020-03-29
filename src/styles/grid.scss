@@ -4,7 +4,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 12px;
   flex-direction: column;
 }
 
@@ -36,13 +35,6 @@
   border-right: 2px solid $border-color;
 }
 
-// .ag-theme-balham .ag-ltr .ag-cell:nth-child(4) {
-//   width: 50px !important;
-//   height: 45px;
-//   margin-left: 12px;
-//   margin-top: 6px;
-// }
-
 .ag-theme-balham .ag-header-cell::after {
   background-color: transparent !important;
 }
@@ -53,7 +45,7 @@
 
 .ag-theme-balham .ag-ltr .ag-cell {
   font-weight: 400;
-  color: #6b6b99;
+  color: $grid-cell-color;
   span {
     width: 50px;
   }
@@ -64,7 +56,7 @@
   text-decoration: none;
 
   &:hover {
-    color: black;
+    color: $cell-link-hover;
   }
 }
 

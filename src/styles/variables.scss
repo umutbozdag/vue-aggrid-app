@@ -1,12 +1,33 @@
+// grid
+
 $header-bg: rgb(115, 115, 255, 0.03);
 $header-item-color: #8282bb;
 $border-color: #e3e3fc;
+$grid-cell-color: #6b6b99;
 
 $cell-link: #7373ff;
+$cell-link-hover: #ababec;
 $border-color: rgb(49, 49, 77, 0.1);
 
+// ranks
 $change-pos-bg: rgba(33, 217, 155, 0.1);
 $change-pos-color: #21d99b;
 
 $change-neg-bg: rgba(255, 77, 121, 0.1);
 $change-neg-color: #ff4d79;
+
+// home
+$home-title-color: #6b6b99;
+$home-bg-color: #ffffff;
+
+// app
+$app-bg-color: #f7f7fc;
+
+// header item
+$header-item-active: rgb(115, 115, 255, 0.4);
+$custom-header-label: #9999cc;
+$header-item-inactive: #dadafa;
+
+// modal
+$modal-title: #9999cc;
+$modal-keyword: #6b6b99;
