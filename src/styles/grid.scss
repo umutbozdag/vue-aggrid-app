@@ -17,22 +17,22 @@
   font-family: "Barlow", sans-serif;
 }
 .ag-theme-balham .ag-header {
-  background-color: $header-bg;
+  background-color: var(--header-bg);
 }
 
 .ag-header-cell-text {
-  color: $header-item-color;
+  color: var(--header-item-color);
 }
 
 .ag-theme-balham .ag-row {
-  background: white;
+  background: var(--grid-row-bg);
 }
 
 .ag-header-cell:first-child {
-  border-right: 2px solid $border-color;
+  border-right: 2px solid var(--border-color);
 }
 .ag-theme-balham .ag-ltr .ag-cell:first-child {
-  border-right: 2px solid $border-color;
+  border-right: 2px solid var(--border-color);
 }
 
 .ag-theme-balham .ag-header-cell::after {
@@ -45,26 +45,26 @@
 
 .ag-theme-balham .ag-ltr .ag-cell {
   font-weight: 400;
-  color: $grid-cell-color;
+  color: var(--grid-cell-color);
   span {
     width: 50px;
   }
 }
 
 .cell-link {
-  color: $cell-link;
+  color: var(--cell-link);
   text-decoration: none;
 
   &:hover {
-    color: $cell-link-hover;
+    color: var(--cell-link-hover);
   }
 }
 
 .ag-theme-balham {
   .ag-row {
-    border: 1px solid $border-color;
+    border: 1px solid var(--border-color);
     &:hover {
-      background: $header-bg;
+      background: var(--header-bg);
     }
   }
 }
@@ -73,8 +73,8 @@
   border: none;
 }
 .ag-theme-balham .ag-header {
-  border-top: 1px solid $border-color;
-  border-bottom: 1px solid $border-color;
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
 }
 
 .ag-header-cell-sortable {
