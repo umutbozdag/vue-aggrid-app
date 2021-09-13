@@ -1,4 +1,4 @@
-# zeo-interview-project
+# Vue AG Grid App
 
 ## Project setup
 ```
